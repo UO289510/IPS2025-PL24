@@ -39,19 +39,6 @@ public class VentanaRecibos extends JFrame {
 	private JTable table;
 	private JButton btnVerDetallesRecibo;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaRecibos frame = new VentanaRecibos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public VentanaRecibos() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaRecibos.class.getResource("/img/EII.jpeg")));
 		setTitle("Club deportivo EII: Mis recibos");

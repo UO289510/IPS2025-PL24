@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -41,24 +42,14 @@ public class VentanaFederacion extends JDialog {
 	private JLabel lblDeportesFederados;
 	private JLabel lblMenorDeEdad;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaTutor frame = new VentanaTutor();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	public VentanaFederacion() {
-		setTitle("Club Deportivo EII: Licencia para federación en un deporte");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaFederacion.class.getResource("/img/EII.jpeg")));
+		setTitle("Club Deportivo EII: Licencia para federación en un deporte");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 356, 455);
 		contentPane = new JPanel();
+		setContentPane(contentPane);
+		contentPane.setBorder(new EmptyBorder(5,5,5,5));
 		contentPane.setLayout(null);
 		contentPane.add(getPanel());
 		contentPane.add(getPnDeportesFederados());

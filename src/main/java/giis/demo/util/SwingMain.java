@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import giis.demo.tkrun.*;
+import giis.demo.ui.VentanaFederacion;
+import giis.demo.ui.VentanaRecibos;
+import giis.demo.ui.VentanaTutor;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -80,6 +83,29 @@ public class SwingMain {
 			}
 		});
 		frame.getContentPane().add(btnCargarDatosIniciales);
+		JButton btnVentanaFederacion = new JButton("Abrir Ventana Federación");
+		btnVentanaFederacion.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        new VentanaFederacion().setVisible(true);
+		    }
+		});
+		frame.getContentPane().add(btnVentanaFederacion);
+
+		JButton btnVentanaRecibos = new JButton("Abrir Ventana Recibos");
+		btnVentanaRecibos.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        new VentanaRecibos().setVisible(true);
+		    }
+		});
+		frame.getContentPane().add(btnVentanaRecibos);
+
+		JButton btnVentanaTutor = new JButton("Abrir Ventana Tutor");
+		btnVentanaTutor.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        new VentanaTutor().setVisible(true);
+		    }
+		});
+		frame.getContentPane().add(btnVentanaTutor);
 	}
 
 	public JFrame getFrame() { return this.frame; }
