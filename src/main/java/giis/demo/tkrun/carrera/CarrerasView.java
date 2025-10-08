@@ -1,4 +1,4 @@
-package giis.demo.tkrun;
+package giis.demo.tkrun.carrera;
 
 import javax.swing.JFrame;
 import net.miginfocom.swing.MigLayout;

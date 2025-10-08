@@ -8,6 +8,7 @@ import junitparams.Parameters;
 import junitparams.JUnitParamsRunner;
 
 import giis.demo.tkrun.*;
+import giis.demo.tkrun.carrera.CarrerasModel;
 import giis.demo.util.*;
 
 import java.util.Date;

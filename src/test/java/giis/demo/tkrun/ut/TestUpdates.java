@@ -3,6 +3,8 @@ import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
 import giis.demo.tkrun.*;
+import giis.demo.tkrun.carrera.CarreraEntity;
+import giis.demo.tkrun.carrera.CarrerasModel;
 import giis.demo.util.*;
 
 import java.util.List;

@@ -8,6 +8,8 @@ import org.junit.rules.ExpectedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import giis.demo.tkrun.*;
+import giis.demo.tkrun.carrera.CarreraDisplayDTO;
+import giis.demo.tkrun.carrera.CarrerasModel;
 import giis.demo.util.*;
 import giis.visualassert.VisualAssert;
 

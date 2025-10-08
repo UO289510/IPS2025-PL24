@@ -7,103 +7,103 @@ DROP TABLE IF EXISTS Federado;
 DROP TABLE IF EXISTS Licencia;
 DROP TABLE IF EXISTS Recibo;
 DROP TABLE IF EXISTS Finanzas;
-DROP TABLE IF EXISTS Incidencias;
+DROP TABLE IF EXISTS Incidencia;
 DROP TABLE IF EXISTS Logger;
 DROP TABLE IF EXISTS Actividad;
 DROP TABLE IF EXISTS Asamblea;
-DROP TABLE IF EXISTS Instalaciones;
+DROP TABLE IF EXISTS Instalacion;
 DROP TABLE IF EXISTS Reserva;
 DROP TABLE IF EXISTS Usuario;
 
 CREATE TABLE Usuario (
     DNI TEXT PRIMARY KEY,
-    Nombre TEXT NOT NULL,
-    Apellido TEXT NOT NULL,
-    Contrasenia TEXT NOT NULL,
-    Fecha_nacimiento DATE NOT NULL,
-    Nombre_tutor TEXT,
-    Apellido_tutor TEXT,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
+    contrasenia TEXT NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    nombre_tutor TEXT,
+    apellido_tutor TEXT,
     DNI_tutor TEXT,
-    Telefono_tutor TEXT,
-    EsDirectivo BOOLEAN DEFAULT 0,
+    telefono_tutor TEXT,
+    es_directivo BOOLEAN DEFAULT 0,
     IBAN TEXT
 );
 
 CREATE TABLE Federado (
-    Codigo TEXT PRIMARY KEY,
+    codigo TEXT PRIMARY KEY,
     DNI TEXT NOT NULL REFERENCES Usuario(DNI) ON DELETE CASCADE,
-    Deporte TEXT CHECK(Deporte IN ('Futbol','Baloncesto','Tenis','Padel')) NOT NULL
+    deporte TEXT CHECK(deporte IN ('Futbol','Baloncesto','Tenis','Padel')) NOT NULL
 );
 
 CREATE TABLE Licencia (
     DNI TEXT NOT NULL REFERENCES Usuario(DNI) ON DELETE CASCADE,
-    Codigo_federacion TEXT NOT NULL,
-    Deporte TEXT CHECK(Deporte IN ('Futbol','Baloncesto','Tenis','Padel')) NOT NULL,
-    Estado TEXT CHECK(Estado IN ('Aceptada','En_espera','Rechazada','Caducada')) NOT NULL,
-    Fecha_emision DATE NOT NULL,
-    Fecha_vencimiento DATE NOT NULL,
-    PRIMARY KEY (DNI, Codigo_federacion)
+    codigo_federacion TEXT NOT NULL,
+    deporte TEXT CHECK(deporte IN ('Futbol','Baloncesto','Tenis','Padel')) NOT NULL,
+    estado TEXT CHECK(estado IN ('Aceptada','En_espera','Rechazada','Caducada')) NOT NULL,
+    fecha_emision DATE NOT NULL,
+    fecha_vencimiento DATE NOT NULL,
+    PRIMARY KEY (DNI, codigo_federacion)
 );
 
 CREATE TABLE Recibo (
-    Codigo TEXT PRIMARY KEY,
-    Importe REAL NOT NULL,
-    Nombre TEXT NOT NULL,
-    Apellido TEXT NOT NULL,
-    Fecha_valor DATE NOT NULL,
-    Fecha_emision DATE NOT NULL,
-    Concepto TEXT,
+    codigo TEXT PRIMARY KEY,
+    importe REAL NOT NULL,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
+    fecha_valor DATE NOT NULL,
+    fecha_emision DATE NOT NULL,
+    concepto TEXT,
     IBAN TEXT,
-    Estado TEXT CHECK(Estado IN ('Pagado','Pendiente','Devuelto')) NOT NULL
+    estado TEXT CHECK(estado IN ('Pagado','Pendiente','Devuelto')) NOT NULL
 );
 
 CREATE TABLE Finanzas (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Importe REAL NOT NULL,
-    Tipo TEXT CHECK(Tipo IN ('Ingreso','Gasto')) NOT NULL,
-    Fecha DATE NOT NULL,
-    Concepto TEXT
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    importe REAL NOT NULL,
+    tipo TEXT CHECK(tipo IN ('Ingreso','Gasto')) NOT NULL,
+    fecha DATE NOT NULL,
+    concepto TEXT
 );
 
-CREATE TABLE Incidencias (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Tipo TEXT CHECK(Tipo IN ('Tipo1','Tipo2','Tipo3')) NOT NULL,
-    Localizacion TEXT,
-    Descripcion TEXT,
-    Fecha_registro DATE NOT NULL,
-    Fecha_observacion DATE,
-    Usuario_DNI TEXT NOT NULL REFERENCES Usuario(DNI) ON DELETE CASCADE
+CREATE TABLE Incidencia (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tipo TEXT CHECK(tipo IN ('Instalaciones','Plataforma','Asuntos economicos','Otros')) NOT NULL,
+    localizacion TEXT,
+    descripcion TEXT,
+    fecha_registro DATE NOT NULL,
+    fecha_observacion DATE,
+    usuario_DNI TEXT NOT NULL REFERENCES Usuario(DNI) ON DELETE CASCADE
 );
 
 CREATE TABLE Logger (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Id_directivo TEXT REFERENCES Usuario(DNI),
-    Id_incidencia INTEGER REFERENCES Incidencias(Id),
-    Fecha DATE NOT NULL
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_directivo TEXT REFERENCES Usuario(DNI),
+    id_incidencia INTEGER REFERENCES Incidencia(id),
+    fecha DATE NOT NULL
 );
 
 CREATE TABLE Actividad (
     DNI TEXT REFERENCES Usuario(DNI),
-    Fecha DATE NOT NULL,
-    PRIMARY KEY (DNI, Fecha)
+    fecha DATE NOT NULL,
+    PRIMARY KEY (DNI, fecha)
 );
 
 CREATE TABLE Asamblea (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Puntos_fijos TEXT,
-    Convocatoria TEXT,
-    Observaciones TEXT
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    puntos_fijos TEXT,
+    convocatoria TEXT,
+    observaciones TEXT
 );
 
-CREATE TABLE Instalaciones (
-    Nombre TEXT PRIMARY KEY,
-    Codigo TEXT UNIQUE NOT NULL,
-    Deporte TEXT CHECK(Deporte IN ('Futbol','Baloncesto','Tenis','Padel')) NOT NULL
+CREATE TABLE Instalacion (
+    nombre TEXT PRIMARY KEY,
+    codigo TEXT UNIQUE NOT NULL,
+    deporte TEXT CHECK(deporte IN ('Futbol','Baloncesto','Tenis','Padel')) NOT NULL
 );
 
 CREATE TABLE Reserva (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Instalacion TEXT REFERENCES Instalaciones(Nombre) ON DELETE CASCADE,
-    Hora_inicio DATETIME NOT NULL,
-    Hora_final DATETIME NOT NULL
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    instalacion TEXT REFERENCES Instalacion(nombre) ON DELETE CASCADE,
+    hora_inicio DATETIME NOT NULL,
+    hora_final DATETIME NOT NULL
 );
