@@ -1,4 +1,4 @@
-package giis.demo.ui;
+package giis.demo.ui.federar;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;

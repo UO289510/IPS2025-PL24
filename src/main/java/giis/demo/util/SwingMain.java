@@ -11,9 +11,11 @@ import javax.swing.JFrame;
 import giis.demo.tkrun.carrera.CarrerasController;
 import giis.demo.tkrun.carrera.CarrerasModel;
 import giis.demo.tkrun.carrera.CarrerasView;
-import giis.demo.ui.VentanaFederacion;
-import giis.demo.ui.VentanaRecibos;
-import giis.demo.ui.VentanaTutor;
+import giis.demo.tkrun.verIncidencias.VerIncidencias_Controller;
+import giis.demo.tkrun.verIncidencias.VerIncidencias_Model;
+import giis.demo.ui.federar.VentanaFederacion;
+import giis.demo.ui.federar.VentanaRecibos;
+import giis.demo.ui.federar.VentanaTutor;
 import giis.demo.ui.verIncidencias.VentanaVerIncidencias;
 
 /**
@@ -121,7 +123,10 @@ public class SwingMain {
 		btnVentanaVerIncidencias.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaVerIncidencias().setVisible(true);
+				VerIncidencias_Controller controller = new VerIncidencias_Controller(new VerIncidencias_Model(),
+						new VentanaVerIncidencias());
+				controller.initController();
+				// new VentanaVerIncidencias().setVisible(true);
 			}
 		});
 		frame.getContentPane().add(btnVentanaVerIncidencias);

@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import giis.demo.ui.VentanaTutor;
+import giis.demo.ui.federar.VentanaTutor;
 
 public class VentanaFiltrarIncidencias extends JDialog {
 
@@ -25,8 +25,8 @@ public class VentanaFiltrarIncidencias extends JDialog {
 	private JLabel lblLocalizacion;
 	private JLabel lblFechaInicio;
 	private JLabel lblFechaFinal;
-	private JComboBox comboBox;
-	private JComboBox comboBox_1;
+	private JComboBox comboBoxTipo;
+	private JComboBox comboBoxLocalizacion;
 	private JTextField tfFechaInicio;
 	private JTextField tfFechaFinal;
 	private JPanel pnInferior;
@@ -48,8 +48,8 @@ public class VentanaFiltrarIncidencias extends JDialog {
 		contentPane.add(getLblLocalizacion());
 		contentPane.add(getLblFechaInicio());
 		contentPane.add(getLblFechaFinal());
-		contentPane.add(getComboBox());
-		contentPane.add(getComboBox_1());
+		contentPane.add(getComboBoxTipo());
+		contentPane.add(getComboBoxLocalizacion());
 		contentPane.add(getTfFechaInicio());
 		contentPane.add(getTfFechaFinal());
 		contentPane.add(getPnInferior());
@@ -75,42 +75,42 @@ public class VentanaFiltrarIncidencias extends JDialog {
 
 	private JLabel getLblFechaInicio() {
 		if (lblFechaInicio == null) {
-			lblFechaInicio = new JLabel("Fecha inicio (dd/mm/yyyy):");
+			lblFechaInicio = new JLabel("Fecha registro (dd/mm/yyyy):");
 			lblFechaInicio.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblFechaInicio.setBounds(10, 90, 150, 20);
+			lblFechaInicio.setBounds(10, 90, 183, 20);
 		}
 		return lblFechaInicio;
 	}
 
 	private JLabel getLblFechaFinal() {
 		if (lblFechaFinal == null) {
-			lblFechaFinal = new JLabel("Fecha final (dd/mm/yyyy):");
+			lblFechaFinal = new JLabel("Fecha observación (dd/mm/yyyy):");
 			lblFechaFinal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblFechaFinal.setBounds(10, 130, 150, 20);
+			lblFechaFinal.setBounds(10, 130, 183, 20);
 		}
 		return lblFechaFinal;
 	}
 
-	private JComboBox getComboBox() {
-		if (comboBox == null) {
-			comboBox = new JComboBox();
-			comboBox.setBounds(49, 11, 282, 20);
+	private JComboBox getComboBoxTipo() {
+		if (comboBoxTipo == null) {
+			comboBoxTipo = new JComboBox();
+			comboBoxTipo.setBounds(49, 11, 282, 20);
 		}
-		return comboBox;
+		return comboBoxTipo;
 	}
 
-	private JComboBox getComboBox_1() {
-		if (comboBox_1 == null) {
-			comboBox_1 = new JComboBox();
-			comboBox_1.setBounds(85, 51, 246, 20);
+	private JComboBox getComboBoxLocalizacion() {
+		if (comboBoxLocalizacion == null) {
+			comboBoxLocalizacion = new JComboBox();
+			comboBoxLocalizacion.setBounds(85, 51, 246, 20);
 		}
-		return comboBox_1;
+		return comboBoxLocalizacion;
 	}
 
 	private JTextField getTfFechaInicio() {
 		if (tfFechaInicio == null) {
 			tfFechaInicio = new JTextField();
-			tfFechaInicio.setBounds(170, 92, 161, 18);
+			tfFechaInicio.setBounds(203, 92, 128, 18);
 			tfFechaInicio.setColumns(10);
 		}
 		return tfFechaInicio;
@@ -120,7 +120,7 @@ public class VentanaFiltrarIncidencias extends JDialog {
 		if (tfFechaFinal == null) {
 			tfFechaFinal = new JTextField();
 			tfFechaFinal.setColumns(10);
-			tfFechaFinal.setBounds(170, 132, 161, 18);
+			tfFechaFinal.setBounds(203, 132, 128, 18);
 		}
 		return tfFechaFinal;
 	}
