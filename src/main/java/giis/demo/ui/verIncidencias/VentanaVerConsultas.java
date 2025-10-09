@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,16 +21,18 @@ public class VentanaVerConsultas extends JDialog {
 	String[] columnas = { "ID", "Tipo", "Localización", "Descripción", "Fecha Registro" };
 	DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 	private JPanel panel;
-	private JList list;
+	private JList listConsultas;
 	private JLabel lblConsultas;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the dialog.
 	 */
 	public VentanaVerConsultas() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaTutor.class.getResource("/img/EII.jpeg")));
 		setTitle("Club deportivo EII: Datos tutor legal");
-		setBounds(100, 100, 355, 236);
+		setBounds(100, 100, 600, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -41,17 +44,18 @@ public class VentanaVerConsultas extends JDialog {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(10, 36, 321, 153);
-			panel.add(getList());
+			panel.setBounds(10, 36, 566, 267);
+			panel.setLayout(null);
+			panel.add(getScrollPane());
 		}
 		return panel;
 	}
 
-	private JList getList() {
-		if (list == null) {
-			list = new JList();
+	public JList<String> getListConsultas() {
+		if (listConsultas == null) {
+			listConsultas = new JList<String>();
 		}
-		return list;
+		return listConsultas;
 	}
 
 	private JLabel getLblConsultas() {
@@ -61,5 +65,14 @@ public class VentanaVerConsultas extends JDialog {
 			lblConsultas.setBounds(10, 10, 321, 16);
 		}
 		return lblConsultas;
+	}
+
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setBounds(0, 0, 566, 267);
+			scrollPane.setViewportView(getListConsultas());
+		}
+		return scrollPane;
 	}
 }

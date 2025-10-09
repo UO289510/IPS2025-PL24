@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS Asamblea;
 DROP TABLE IF EXISTS Instalacion;
 DROP TABLE IF EXISTS Reserva;
 DROP TABLE IF EXISTS Usuario;
+DROP TABLE IF EXISTS ConsultaIncidencia;
 
 CREATE TABLE Usuario (
     DNI TEXT PRIMARY KEY,
@@ -73,6 +74,15 @@ CREATE TABLE Incidencia (
     fecha_registro DATE NOT NULL,
     fecha_observacion DATE,
     usuario_DNI TEXT NOT NULL REFERENCES Usuario(DNI) ON DELETE CASCADE
+);
+
+CREATE TABLE ConsultaIncidencia (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_incidencia INTEGER NOT NULL,
+    id_directivo INTEGER NOT NULL,
+    nombre_directivo TEXT NOT NULL,
+    apellido_directivo TEXT NOT NULL,
+    fecha_consulta TEXT NOT NULL
 );
 
 CREATE TABLE Logger (

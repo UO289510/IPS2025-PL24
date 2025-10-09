@@ -7,6 +7,7 @@ delete from Licencia;
 delete from Recibo;
 delete from Instalacion;
 delete from Incidencia;
+delete from ConsultaIncidencia;
 
 
 -- =====================================
@@ -52,3 +53,12 @@ VALUES
 	('Plataforma','Tenis','asasfhdfghhsafas','2016-10-12','2016-11-02','12'),
 	('Otros','Tenis','hsdhdff','2016-10-22','2016-11-28','2'),
 	('Asuntos economicos','Tenis','retegfdsh','2016-10-22','2016-11-01','3');
+	
+-- CONSULTAS INCIDENTES
+INSERT INTO ConsultaIncidencia(id_incidencia,id_directivo,nombre_directivo,apellido_directivo,fecha_consulta) 
+VALUES 
+	('1','1','aasfddgdgfas','sdfsdfg','2016-10-05, 10:34'),
+	('1','2','sdf','dfsfdsdf','2016-10-15, 21:35'),
+	('1','3','sdfsd','fsdsdf','2016-12-12, 10:43'),
+	('2','4','df','dfggdfgd','2016-11-24, 16:12'),
+	('3','5','fsdfsdfd','jytnh','2016-11-22, 03:54');

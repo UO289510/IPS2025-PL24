@@ -36,7 +36,6 @@ public class VentanaVerIncidencias extends JDialog {
 	private JButton btnBuscar;
 	private JButton btnFiltrar;
 	private JButton btnVolver;
-	private JButton btnHistorial;
 	private JPanel panelMedio;
 	private JScrollPane scrollIncidencias;
 	private JTable tablaIncidencias;
@@ -96,7 +95,6 @@ public class VentanaVerIncidencias extends JDialog {
 			flowLayout.setVgap(8);
 			flowLayout.setAlignment(FlowLayout.RIGHT);
 			panelInferior.setBounds(0, 426, 686, 37);
-			panelInferior.add(getBtnHistorial());
 			panelInferior.add(getBtnVolver());
 		}
 		return panelInferior;
@@ -142,15 +140,14 @@ public class VentanaVerIncidencias extends JDialog {
 	private JButton getBtnVolver() {
 		if (btnVolver == null) {
 			btnVolver = new JButton("Volver");
+			btnVolver.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					VentanaVerIncidencias.this.dispose();
+				}
+			});
 		}
 		return btnVolver;
-	}
-
-	private JButton getBtnHistorial() {
-		if (btnHistorial == null) {
-			btnHistorial = new JButton("Ver Historial de Busqueda");
-		}
-		return btnHistorial;
 	}
 
 	private JPanel getPanelMedio() {
@@ -265,6 +262,7 @@ public class VentanaVerIncidencias extends JDialog {
 			textFieldId.setEnabled(false);
 			textFieldId.setEditable(false);
 			textFieldId.setColumns(10);
+			textFieldId.setDisabledTextColor(Color.BLACK);
 		}
 		return textFieldId;
 	}
@@ -275,6 +273,7 @@ public class VentanaVerIncidencias extends JDialog {
 			textFieldTipo.setEnabled(false);
 			textFieldTipo.setEditable(false);
 			textFieldTipo.setColumns(10);
+			textFieldTipo.setDisabledTextColor(Color.BLACK);
 		}
 		return textFieldTipo;
 	}
@@ -285,6 +284,7 @@ public class VentanaVerIncidencias extends JDialog {
 			textFieldLocalizacion.setEnabled(false);
 			textFieldLocalizacion.setEditable(false);
 			textFieldLocalizacion.setColumns(10);
+			textFieldLocalizacion.setDisabledTextColor(Color.BLACK);
 		}
 		return textFieldLocalizacion;
 	}
@@ -295,6 +295,7 @@ public class VentanaVerIncidencias extends JDialog {
 			textFieldRegistro.setEnabled(false);
 			textFieldRegistro.setEditable(false);
 			textFieldRegistro.setColumns(10);
+			textFieldRegistro.setDisabledTextColor(Color.BLACK);
 		}
 		return textFieldRegistro;
 	}
@@ -305,6 +306,7 @@ public class VentanaVerIncidencias extends JDialog {
 			textFieldObservacion.setEnabled(false);
 			textFieldObservacion.setEditable(false);
 			textFieldObservacion.setColumns(10);
+			textFieldObservacion.setDisabledTextColor(Color.BLACK);
 		}
 		return textFieldObservacion;
 	}
@@ -315,6 +317,7 @@ public class VentanaVerIncidencias extends JDialog {
 			textFieldUser.setEnabled(false);
 			textFieldUser.setEditable(false);
 			textFieldUser.setColumns(10);
+			textFieldUser.setDisabledTextColor(Color.BLACK);
 		}
 		return textFieldUser;
 	}
@@ -325,6 +328,7 @@ public class VentanaVerIncidencias extends JDialog {
 			textAreaDescripcion.setBackground(new Color(240, 240, 240));
 			textAreaDescripcion.setEnabled(false);
 			textAreaDescripcion.setEditable(false);
+			textAreaDescripcion.setDisabledTextColor(Color.BLACK);
 		}
 		return textAreaDescripcion;
 	}

@@ -8,14 +8,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import giis.demo.tkrun.carrera.CarrerasController;
-import giis.demo.tkrun.carrera.CarrerasModel;
-import giis.demo.tkrun.carrera.CarrerasView;
 import giis.demo.tkrun.verIncidencias.VerIncidencias_Controller;
 import giis.demo.tkrun.verIncidencias.VerIncidencias_Model;
 import giis.demo.ui.federar.VentanaFederacion;
 import giis.demo.ui.federar.VentanaRecibos;
 import giis.demo.ui.federar.VentanaTutor;
+import giis.demo.ui.verIncidencias.VentanaVerConsultas;
 import giis.demo.ui.verIncidencias.VentanaVerIncidencias;
 
 /**
@@ -56,17 +54,24 @@ public class SwingMain {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		VentanaVerIncidencias ventanaVerIncidencias = new VentanaVerIncidencias();
+		VentanaVerConsultas ventanaVerConsultas = new VentanaVerConsultas();
+		VerIncidencias_Controller incidenciasController = new VerIncidencias_Controller(new VerIncidencias_Model(),
+				ventanaVerIncidencias);
+		incidenciasController.initController();
+
 		frame = new JFrame();
 		frame.setTitle("Main");
 		frame.setBounds(0, 0, 400, 300);
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
+
 		btnEjecutarTkrun.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CarrerasController controller = new CarrerasController(new CarrerasModel(), new CarrerasView());
-				controller.initController();
+				// CarrerasController.initController();
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
@@ -123,13 +128,21 @@ public class SwingMain {
 		btnVentanaVerIncidencias.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VerIncidencias_Controller controller = new VerIncidencias_Controller(new VerIncidencias_Model(),
-						new VentanaVerIncidencias());
-				controller.initController();
-				// new VentanaVerIncidencias().setVisible(true);
+				incidenciasController.getVentanaVerIncidencias().setVisible(true);
 			}
 		});
 		frame.getContentPane().add(btnVentanaVerIncidencias);
+
+		JButton btnConsultaIncidencia = new JButton("Ver Historial de consultas de las Incidencias");
+		btnConsultaIncidencia.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaVerConsultas ventanaConsultas = new VentanaVerConsultas();
+				ventanaConsultas.setVisible(true);
+				incidenciasController.cargarConsultasIncidencias(ventanaConsultas);
+			}
+		});
+		frame.getContentPane().add(btnConsultaIncidencia);
 	}
 
 	public JFrame getFrame() {

@@ -1,53 +1,73 @@
 package giis.demo.tkrun.verIncidencias;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
 
+import giis.demo.ui.verIncidencias.VentanaVerConsultas;
 import giis.demo.ui.verIncidencias.VentanaVerIncidencias;
-import giis.demo.util.SwingUtil;
 
 public class VerIncidencias_Controller {
 
 	/*
-	 * MIRAR CADA CUANTO MIRO LA TABLA, NECESITO TODOS LOS VALORES PARA METERLOS EN
-	 * EL DETALLADO
-	 * 
-	 * VER COMO GUARDAR LAS CONSULTAS, SI EN TXT O EN TABLA EN DB
-	 * 
-	 * HACER LA APERTURA DEL HISTORIAL DE CONSULTAS
 	 * 
 	 * HACER EL FILTRO FUNCIONAL
 	 * 
 	 * CHECKEAR SI EL QUE ENTRA ES DIRECTIVO, SINO NO DEJAR ENTRAR
+	 * 
 	 */
 
 	private VerIncidencias_Model model;
 	private VentanaVerIncidencias view;
+
+	private List<IncidenciaDTO> incidencias;
+	private List<IncidenciaDTO> incidenciasFiltradas;
+
+	private boolean filtrando = false;
 
 	public VerIncidencias_Controller(VerIncidencias_Model verIncidencias_Model,
 			VentanaVerIncidencias ventanaVerIncidencias) {
 		this.model = verIncidencias_Model;
 		this.view = ventanaVerIncidencias;
 
+		this.incidencias = model.getListaIncidencias();
+		this.incidenciasFiltradas = incidencias;
+
 		this.initView();
 	}
 
-	public void initView() {
-		this.getListaIncidencias();
-
-		view.setVisible(true);
+	public VentanaVerIncidencias getVentanaVerIncidencias() {
+		return view;
 	}
 
-	private void getListaIncidencias() {
+	public void initView() {
+		this.showListaIncidencias();
+	}
+
+	private void showListaIncidencias() {
 		List<IncidenciaDTO> incidencias = model.getListaIncidencias();
-		TableModel tmodel = SwingUtil.getTableModelFromPojos(incidencias,
-				new String[] { "id", "tipo", "localizacion", "fecha_registro", "fecha_observacion" });
+
+		DefaultTableModel tmodel = new DefaultTableModel(new Object[][] {},
+				new String[] { "id", "tipo", "localizacion", "fecha_registro", "fecha_observacion" }) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		// Rellenar los datos
+		for (IncidenciaDTO i : incidencias) {
+			tmodel.addRow(new Object[] { i.getId(), i.getTipo(), i.getLocalizacion(), i.getFecha_registro(),
+					i.getFecha_observacion() });
+		}
+
 		view.getTablaIncidencias().setModel(tmodel);
-		SwingUtil.autoAdjustColumns(view.getTablaIncidencias());
 	}
 
 	public void initController() {
@@ -66,13 +86,13 @@ public class VerIncidencias_Controller {
 	}
 
 	private void mostrarDetalle(int fila) {
-		String id = view.getTablaIncidencias().getValueAt(fila, 0).toString();
-		String tipo = view.getTablaIncidencias().getValueAt(fila, 1).toString();
-		String localizacion = view.getTablaIncidencias().getValueAt(fila, 2).toString();
-		String descripcion = view.getTablaIncidencias().getValueAt(fila, 3).toString();
-		String fechaRegistro = view.getTablaIncidencias().getValueAt(fila, 4).toString();
-		String fechaObservacion = view.getTablaIncidencias().getValueAt(fila, 5).toString();
-		String usuarioDNI = view.getTablaIncidencias().getValueAt(fila, 6).toString();
+		String id = String.valueOf(incidencias.get(fila).getId());
+		String tipo = incidencias.get(fila).getTipo();
+		String localizacion = incidencias.get(fila).getLocalizacion();
+		String descripcion = incidencias.get(fila).getDescripcion();
+		String fechaRegistro = incidencias.get(fila).getFecha_registro();
+		String fechaObservacion = incidencias.get(fila).getFecha_observacion();
+		String usuarioDNI = incidencias.get(fila).getUsuario_DNI();
 
 		// Ejemplo: mostrar en campos JTextField
 		view.getTextFieldId().setText(id);
@@ -90,10 +110,25 @@ public class VerIncidencias_Controller {
 		String idIncidencia = id;
 		String dni = "POR_HACER";
 		String nombre = "POR_HACER";
-		String apellido = "POR_HACER";
-		LocalTime horaActual = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
+		String apellidos = "POR_HACER";
+		LocalDateTime horaActual = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
-		// mirar donde guardarlo
+		model.insertConsultaIncidencia(idIncidencia, dni, nombre, apellidos,
+				horaActual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm")));
+	}
+
+	public void cargarConsultasIncidencias(VentanaVerConsultas ventanaConsultas) {
+		List<ConsultaIncidenciaDTO> consultas = model.getListaConsultas();
+		DefaultListModel<String> modelo = new DefaultListModel<>();
+		ventanaConsultas.getListConsultas().setModel(modelo);
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm");
+
+		consultas.sort(Comparator.comparing(c -> LocalDateTime.parse(c.getFecha_consulta().toString(), formatter)));
+
+		for (int i = consultas.size() - 1; i >= 0; i--) {
+			modelo.addElement(consultas.get(i).toString());
+		}
 	}
 
 }
